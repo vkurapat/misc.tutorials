@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">misc.tutorials</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,7 @@
 <code>echo = FALSE</code>, test-chunk discipline, code-chunk labeling, the setup-chunk skeleton, data handling, and formatting conventions.</li>
 </ul><p><code>misc.tutorials</code> is one of the packages the base guide governs by default — it is <strong>not</strong> an exception (those are <code>vscode.tutorials</code> and <code>tutorial.helpers</code>).</p>
 <p><strong>Precedence.</strong> On workflow and shared conventions, the base guide wins. On <code>misc.tutorials</code>-specific content this file wins. Any departure from the base guide must be an <strong>explicit, on-the-record override</strong> stated here — never a silent difference. (The base guide already carries the <em>Choosing topics (misc.tutorials-specific)</em> section; this file does not repeat it.)</p>
+<p><strong>Override — no interpretation exercises.</strong> The base guide (§4, <em>Analysis path</em>) requires a dedicated interpretation exercise after each significant visualization, asking students to write one or two sentences about what the plot shows. <code>misc.tutorials</code> does <strong>not</strong> follow this rule. The tutorials here are structured around AI-assisted artifact creation; students steer the analysis and judge the output, but are not asked to write prose interpretations in the QMD. Knowledge drops carry the interpretive commentary instead. Do not add interpretation exercises to any tutorial in this package.</p>
 </div>
 <div class="section level2">
 <h2 id="what-this-package-is">What this package is<a class="anchor" aria-label="anchor" href="#what-this-package-is"></a></h2>
@@ -53,7 +54,7 @@
 <strong><a href="https://r4ds.hadley.nz/" class="external-link">R for Data Science (2e)</a></strong> — the <code>r4ds-1</code> … <code>r4ds-5</code> tutorials.</li>
 <li>
 <strong><a href="https://walker-data.com/census-r/" class="external-link">Analyzing US Census Data</a></strong> by Kyle Walker — the <code>census</code> tutorial.</li>
-</ul><p><strong>The organizing theme is storage technology.</strong> Each tutorial sources its data from a different sort of storage — delimited files, spreadsheets, databases, Arrow files, spatial formats, and web APIs — and then works with that data using the <strong><a href="https://www.tidyverse.org/" class="external-link">tidyverse</a></strong>. The storage technology is the spine of each tutorial; the subject-area domain (music, births/basketball, baby names/flights, FIFA/NBA, earthquakes, census demographics) is chosen to suit it.</p>
+</ul><p><strong>The organizing theme is storage technology.</strong> Each tutorial sources its data from a different sort of storage — delimited files, spreadsheets, databases, Arrow files, spatial formats, and web APIs — and then works with that data using the <strong><a href="https://www.tidyverse.org/" class="external-link">tidyverse</a></strong>. The storage technology is the spine of each tutorial; the subject-area domain (music, births/basketball, baby names/flights, crypto/prediction markets, wildfires/film rankings, census demographics) is chosen to suit it.</p>
 <p>The division of the R for Data Science material into five tutorials (<code>r4ds-1</code> … <code>r4ds-5</code>) is reasonable but <strong>arbitrary</strong> — the same material could be split into more or fewer. Treat the count as a convenience, not a fixed boundary, when deciding whether to split a long tutorial (see <code>TODO.txt</code> on <code>r4ds-4</code>) or merge two short ones.</p>
 </div>
 <div class="section level2">
@@ -78,17 +79,37 @@
 <td><code>*.duckdb</code></td>
 </tr><tr><td><code>r4ds-4</code></td>
 <td>Arrow / Parquet</td>
-<td>arrow, plotly, scales, viridis</td>
+<td>arrow, viridis</td>
 <td><code>*.parquet</code></td>
 </tr><tr><td><code>r4ds-5</code></td>
 <td>Spatial / web</td>
-<td>sf-style GeoJSON, leaflet, ggrepel, httr2, rvest</td>
-<td><code>earthquakes.geojson</code></td>
+<td>jsonlite, leaflet, purrr, httr2, rvest</td>
+<td>
+<code>wildfires.geojson</code>, <code>imdb_snapshots.rds</code>
+</td>
 </tr><tr><td><code>census</code></td>
 <td>Web API</td>
 <td>tidycensus, sf</td>
 <td><code>*.rds</code></td>
+</tr><tr><td><code>baseball</code></td>
+<td>R data package (Lahman)</td>
+<td>Lahman, tidyverse</td>
+<td>
+<code><a href="http://cdalzell.github.io/Lahman/reference/Teams.html" class="external-link">Lahman::Teams</a></code>, <code><a href="http://cdalzell.github.io/Lahman/reference/Batting.html" class="external-link">Lahman::Batting</a></code>, <code><a href="http://cdalzell.github.io/Lahman/reference/People.html" class="external-link">Lahman::People</a></code>
+</td>
 </tr></tbody></table></div>
+<div class="section level2">
+<h2 id="project-tutorials-baseball-and-later">Project tutorials (<code>baseball</code> and later)<a class="anchor" aria-label="anchor" href="#project-tutorials-baseball-and-later"></a></h2>
+<p><code>baseball</code> is the first of a newer tier of tutorials (topics like baseball, stocks, Bitcoin, weather, US maps) whose distinguishing feature is that <strong>the final artifact is a <em>project</em> — not a single published <code>analysis.qmd</code> page.</strong> A “project” is any multi-file Quarto/R artifact a student creates and publishes: a simple multi-page <strong>website</strong> (baseball’s form), but equally a <strong>Shiny app</strong>, a <strong>Quarto dashboard</strong>, or similar. Students are assumed to have done the <code>vscode.tutorials</code> material for whichever project type a tutorial uses, so the project <em>mechanics</em> are not re-taught. The following base-guide defaults are written for the single-page model and are <strong>overridden on the record</strong> for this tier (the first three are general to every project type; the fourth is specific to the website form <code>baseball</code> uses):</p>
+<ul><li>
+<strong>A project, not <code>analysis.qmd</code>.</strong> The student builds a multi-file project with its own config (e.g. <code>_quarto.yml</code>) and a natural place for each topic, rather than one evolving <code>analysis.qmd</code>. The base guide’s “one evolving working chunk per topic” maps onto “one unit of the project per topic” — for a website, <strong>one page per topic</strong> (<code>home-runs.qmd</code>, <code>sluggers.qmd</code>); for a dashboard, one card/section; for Shiny, one view. Site/app-wide settings like <code>execute: echo: false</code> go in the project config once, not in each file’s YAML.</li>
+<li>
+<strong>Students write AI-drafted prose as project content.</strong> The TODO asks that students add text to the project; they draft framing/landing prose with AI and submit it via <code>show_file()</code> on the relevant file. <strong>This is not the forbidden interpretation exercise.</strong> The <em>no-interpretation-exercises</em> override still holds: we never ask a student to write graded prose explaining what a plot shows. Writing the project’s framing copy is <strong>artifact-content creation</strong> — words the project genuinely needs — and our shown answer is a model paragraph of that copy. Keep prose tasks to framing, not per-plot interpretation.</li>
+<li>
+<strong>Topic-driven, not a new storage technology.</strong> Per the TODO (“tutorials now are about concepts, not books”), this tier is organized around a <strong>domain plus its gold-standard R data infrastructure</strong>, and need not introduce an unused storage technology. <code>baseball</code> does not: its “storage” is simply the <strong>Lahman</strong> R data package. The storage-spine framing in <em>What this package is</em> applies to the <code>r4ds-*</code>/<code>census</code> tutorials; for this tier the spine relaxes to “domain + canonical data source.” Still teach the data ecosystem in knowledge drops (for baseball: Lahman as the season-level gold standard, with Retrosheet/Statcast/<strong>baseballr</strong> as the finer-grained frontier).</li>
+<li>
+<strong>Website form (baseball’s project type).</strong> A Quarto <em>website</em>: <code>_quarto.yml</code> + <code>index.qmd</code> + one analysis page per topic. Render the whole site with bare <code>quarto render</code>; open <code>_site/index.html</code> with Live Server (output lives in <code>_site/</code>). <code>.gitignore</code> ignores <code>/_site/</code>, <code>/.quarto/</code>, <code>/*_files/</code>, and (after the caching arc) <code>/*_cache/</code>. A page’s <code>#| cache: true</code> chunk creates a top-level <code>&lt;page&gt;_cache/</code> directory — same caching arc as the base guide, on a per-page chunk. The Summary publishes the <strong>whole project</strong> with <code>quarto publish gh-pages</code> (no filename) and its final evidence is <code>show_file("index.qmd")</code>. Other project types will have their own analogous specifics (a dashboard’s <code>_quarto.yml</code> <code>format: dashboard</code>, a Shiny app’s <code>app.R</code>/<code>shinyapps.io</code> deploy); record them here as they are built.</li>
+</ul></div>
 <div class="section level2">
 <h2 id="choosing-topics">Choosing topics<a class="anchor" aria-label="anchor" href="#choosing-topics"></a></h2>
 <p>This is <code>misc.tutorials</code>’ content model — how it picks each tutorial’s subject. The base guide routes topic selection to each project; this is the routed section. Other projects’ models differ (the Primer fixes its topics as the four Cardinal Virtues), so this lives here, not in the base guide.</p>
@@ -102,21 +123,23 @@
 </div>
 <div class="section level2">
 <h2 id="data-handling--package-specifics">Data handling — package specifics<a class="anchor" aria-label="anchor" href="#data-handling--package-specifics"></a></h2>
-<p>The base guide prefers stable source copies under <code>inst/extdata/&lt;tutorial&gt;/</code> and says to avoid <code>inst/tutorials/&lt;name&gt;/data/</code> unless there is a learnr runtime reason. <strong>All tutorials now follow this convention</strong> — the migration away from per-tutorial <code>data/</code> directories (a holdover from <code>vscode.tutorials</code>) is complete:</p>
-<ul><li>Each tutorial’s data lives in <code>inst/extdata/&lt;tutorial&gt;/</code> (e.g. <code>inst/extdata/r4ds-4/game.parquet</code>).</li>
-<li>Setup and test chunks read it with a relative path from the tutorial’s own folder: <code>../../extdata/&lt;tutorial&gt;/&lt;file&gt;</code> (e.g. <code>open_dataset("../../extdata/r4ds-4/game.parquet")</code>, <code>read_rds("../../extdata/census/income_tx.rds")</code>). This resolves because a tutorial knits with its folder as the working directory.</li>
-<li>Student-facing download URLs point at the same files on GitHub (<code>.../raw/refs/heads/main/inst/extdata/&lt;tutorial&gt;/&lt;file&gt;</code>). Students still download into their <strong>own</strong> <code>data/</code> directory and read <code>data/&lt;file&gt;</code> from their <code>analysis.qmd</code>; only the package’s own knit reads from <code>extdata</code>. (So a build/answer chunk shows <code>../../extdata/...</code> while the student’s prompt says <code>data/...</code> — an accepted cosmetic mismatch inherited from the <code>r4ds-2</code> rework.)</li>
+<p><strong>A tutorial’s data lives in a <code>data/</code> directory inside that tutorial’s own folder</strong> — <code>inst/tutorials/&lt;name&gt;/data/&lt;file&gt;</code>, sitting next to <code>tutorial.Rmd</code> and at the same level as the <code>images/</code> directory (if there is one). This is now the <strong>base-guide default</strong> (§6, <em>Data handling</em>); the rationale — the package’s own code becomes identical to the student’s code — lives there. Every file-based tutorial has been migrated to this layout; <code>inst/extdata/</code> and the old re-download machinery are <strong>gone</strong>. This section records the <code>misc.tutorials</code>-specific mechanics:</p>
+<ul><li>
+<strong>The package’s setup and test chunks read data with the exact relative path a student writes:</strong> <code>read_csv("data/music.csv")</code>, not <code>../../extdata/r4ds-1/music.csv</code>. Both resolve to <code>data/&lt;file&gt;</code> because a tutorial knits with its own folder as the working directory, and the student’s <code>analysis.qmd</code> sits in a repo with its own <code>data/</code>. Our answer chunks and the student’s prompts now match exactly.</li>
 <li>
-<code>R/zzz.R</code> carries a <code>data_manifest</code> of the files per tutorial and an <code>.onAttach()</code> hook that re-downloads any missing ones into the installed <code>extdata/&lt;tutorial&gt;/</code> (for the CRAN build, which ships without them). <strong>Update the manifest whenever a tutorial’s data files change.</strong>
-</li>
-</ul><p>New work should add data under <code>inst/extdata/&lt;tutorial&gt;/</code>, reference it as <code>../../extdata/&lt;tutorial&gt;/&lt;file&gt;</code>, and add the filenames to the <code>R/zzz.R</code> manifest.</p>
+<strong>Student-facing download URLs point at the same in-tutorial location on GitHub:</strong> <code>.../raw/refs/heads/main/inst/tutorials/&lt;name&gt;/data/&lt;file&gt;</code>. Students download into their own project’s <code>data/</code> directory and read <code>data/&lt;file&gt;</code>.</li>
+<li>
+<strong>Each <code>data/</code> directory carries a <code>README.txt</code></strong> documenting the provenance of its files. These provenance notes are kept in the repo but <strong>not installed</strong> with the package: <code>.Rbuildignore</code> holds the rule <code>^inst/tutorials/[^/]+/data/README\.txt$</code>, which strips the READMEs from the build while the data files themselves still ship.</li>
+<li>
+<strong>Download-instruction style depends on the tutorial’s place in the sequence</strong> (per the base guide’s <em>Match the download instruction</em> rule). The five <code>r4ds-*</code> tutorials are a student’s first data-science tutorials, so they may hand students an explicit, working <code>download.file("&lt;url&gt;", "data/&lt;file&gt;")</code> command. The project-tier tutorials (<code>baseball</code>, <code>ducks</code>, <code>movies</code>, …) and <code>census</code> come later, so they just point students at the stable URL and let them choose how to fetch it (<code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file()</a></code> or AI).</li>
+</ul><p>New work should add data under <code>inst/tutorials/&lt;name&gt;/data/</code>, reference it as <code>data/&lt;file&gt;</code>, point the student download URL at <code>.../inst/tutorials/&lt;name&gt;/data/&lt;file&gt;</code>, and drop a provenance <code>data/README.txt</code>.</p>
+<p><strong>Consequence — CRAN.</strong> Because the data now ships <em>inside</em> <code>inst/tutorials/</code>, it cannot be stripped at build time the way <code>inst/extdata/</code> was, so the package exceeds CRAN’s size limit and is <strong>not CRAN-distributable</strong> — an accepted trade-off (see <code>TODO.txt</code>: <em>“we can’t put the repo on CRAN. But who really cares?”</em>). The old CRAN-stripping machinery (an <code>R/zzz.R</code> <code>data_manifest</code>/<code>.onAttach()</code> re-download hook, an <code>inst/extdata/</code> rule in <code>.Rbuildignore</code>, and a <code>test-data-urls.R</code> check) has been removed; <code>R/zzz.R</code> no longer exists and <code>utils</code> was dropped from <code>DESCRIPTION</code> <code>Imports</code>.</p>
+<p><strong>Exception — tutorials whose data is an R package.</strong> When a tutorial’s data ships <em>inside an R package</em> (e.g. <code>baseball</code> uses <strong>Lahman</strong>), there is no file to host: students <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code> and <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> the package, and the tutorial’s test chunks reference the package’s tables directly (<code>Teams</code>, <code>Batting</code>, <code>People</code>). Such a tutorial has <strong>no <code>data/</code> directory, no download step, and no <code>R/zzz.R</code> manifest entry</strong> — just add the package to <code>DESCRIPTION</code> <code>Suggests</code>. This is more honest about how analysts in that domain actually work (loading the canonical data package) and is the default for the project tier where it applies. (<code>baseball</code> already follows this, so it needs no migration.)</p>
 </div>
 <div class="section level2">
 <h2 id="cran--build-size">CRAN / build size<a class="anchor" aria-label="anchor" href="#cran--build-size"></a></h2>
-<p>The tutorial data files are large (duckdb, parquet, and geojson run into multiple MB each; the package is ~48 MB on disk). The <code>.Rbuildignore</code> keeps a <strong>commented-out</strong> rule —</p>
-<pre><code><span><span class="co"># ^inst/extdata/[^/]+/</span></span></code></pre>
-<p>— that is uncommented only when building a tarball for CRAN, to strip the per-tutorial <code>inst/extdata/&lt;tutorial&gt;/</code> data directories (it keeps <code>inst/extdata/README.txt</code>). On a stripped CRAN install, <code>R/zzz.R</code>’s <code>.onAttach()</code> re-downloads the missing files from GitHub on first load. <code>R CMD check</code> will still report the package as large because it measures the unpacked source, not the compressed <code>.tar.gz</code> that CRAN actually evaluates; the size NOTE from that is expected. (See <code>TODO.txt</code> for the open question about why <code>.Rbuildignore</code> doesn’t seem to shrink the checked size.)</p>
-<p>The test chunks that depend on these data files <code>skip_on_cran()</code> for the same reason (see <code>tests/testthat/test-tutorials.R</code>).</p>
+<p>The tutorial data files are large (duckdb, parquet, and geojson run into multiple MB each; the package is ~48 MB on disk). Under the <code>data/</code>-in-tutorial convention the package <strong>ships its data and is not CRAN-distributable</strong> (see <em>Data handling</em> above) — a trade-off we accept in exchange for the package’s code matching the student’s code. The old CRAN-stripping machinery (the <code>.Rbuildignore</code> <code>extdata</code> rule and the <code>R/zzz.R</code> re-download hook) has been removed entirely.</p>
+<p>The test chunks that depend on data files <code>skip_on_cran()</code> (see <code>tests/testthat/test-tutorials.R</code>); that stays regardless, since the point is simply not to run heavy data code on CRAN’s checkers.</p>
 </div>
 <div class="section level2">
 <h2 id="description">DESCRIPTION<a class="anchor" aria-label="anchor" href="#description"></a></h2>
@@ -128,7 +151,7 @@
 </div>
 <div class="section level2">
 <h2 id="open-items">Open items<a class="anchor" aria-label="anchor" href="#open-items"></a></h2>
-<p>Active TODOs live in <a href="TODO.txt"><code>TODO.txt</code></a> (authoring conventions, the <code>r4ds-4</code> <code>case_when()</code> coercion warning, <code>r4ds-4</code> length / <code>r4ds-5</code> compile time, display options, and new-tutorial ideas). Consult it before starting non-trivial work, and keep it current.</p>
+<p>Active TODOs live in <a href="TODO.txt"><code>TODO.txt</code></a> (data set selection, workflow questions, display options, and new-tutorial ideas). Consult it before starting non-trivial work, and keep it current.</p>
 </div>
 </div>
 
